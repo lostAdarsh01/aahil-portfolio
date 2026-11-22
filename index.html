@@ -3,524 +3,328 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#080b18">
-<title>Aahil AI Studio</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aahil AI Studio 2.0</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;800&family=Inter:wght@400;500;600;700;800&display=swap');
-
-:root{
- --bg:#080b18;--panel:#111a30;--panel2:#172440;
- --text:#f4f6ff;--muted:#9ba9c4;--blue:#42baff;
- --purple:#a16cff;--border:#293957;--green:#55e6a5;
-}
-*{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--text);font-family:Inter,Arial,sans-serif}
-body:before{
- content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
- background:radial-gradient(at 15% 15%,#174c9a44,transparent 40%),
- radial-gradient(at 85% 70%,#792fbd33,transparent 40%);
-}
-nav{
- position:sticky;top:0;z-index:10;padding:17px 6%;
- display:flex;justify-content:space-between;align-items:center;
- gap:15px;flex-wrap:wrap;background:#080b18ed;
- border-bottom:1px solid var(--border);backdrop-filter:blur(15px);
-}
-.logo{font:800 19px Orbitron;letter-spacing:1px}
-.logo span{color:var(--blue)}
-nav a{color:var(--muted);text-decoration:none;font-size:11px;margin:0 8px}
-nav a:hover{color:var(--blue)}
-#clock{font:12px Orbitron;color:var(--blue)}
-.container{width:min(1100px,90%);margin:auto}
-section{padding:65px 0;scroll-margin-top:80px}
-h1,h2,h3{font-family:Orbitron,Arial,sans-serif}
-h1{font-size:clamp(34px,6vw,64px);line-height:1.2}
-h2{font-size:clamp(23px,4vw,32px);margin-bottom:12px}
-p{color:var(--muted);font-size:13px;line-height:1.8}
-.eyebrow{font:11px Orbitron;color:var(--blue);letter-spacing:3px;margin-bottom:15px}
-.gradient{background:linear-gradient(90deg,var(--blue),var(--purple));background-clip:text;color:transparent}
-.hero{min-height:430px;display:flex;align-items:center;justify-content:space-between;gap:30px}
-.hero p{max-width:570px;margin:18px 0 25px}
-.panel{
- background:linear-gradient(145deg,var(--panel2),var(--panel));
- border:1px solid var(--border);border-radius:15px;padding:22px;
- transition:.25s;
-}
-.panel:hover{border-color:#428bd2;transform:translateY(-3px)}
-.btn{
- border:0;border-radius:8px;padding:12px 17px;
- background:linear-gradient(100deg,#168edc,#784ee5);
- color:white;font-weight:800;font-size:11px;cursor:pointer;
- text-decoration:none;display:inline-block;
-}
-.btn:hover{filter:brightness(1.2)}
-.btn:disabled{opacity:.4;cursor:not-allowed}
-.secondary{background:#202d48;border:1px solid var(--border)}
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:25px}
-.two{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:25px}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:22px}
-.stat{background:#0c1428;border:1px solid var(--border);padding:17px;border-radius:12px}
-.stat strong{display:block;color:var(--blue);font:700 22px Orbitron;margin-top:10px}
-.label{font-size:10px;color:var(--muted);letter-spacing:1px}
-.avatar{
- width:100px;height:100px;border-radius:50%;
- display:grid;place-items:center;font-size:49px;
- border:2px solid var(--blue);
- background:radial-gradient(circle,#294c80,#11172d);
- box-shadow:0 0 25px #318aff55;
-}
-.bigavatar{width:125px;height:125px;font-size:65px}
-.avatar-row{display:flex;align-items:center;gap:18px}
-.xpbar{height:9px;background:#273653;border-radius:20px;overflow:hidden;margin:14px 0}
-.xpfill{height:100%;width:0;background:linear-gradient(90deg,var(--blue),var(--purple))}
-input,textarea,select{
- width:100%;padding:12px;background:#0b1427;color:white;
- border:1px solid var(--border);border-radius:8px;
- margin:8px 0 15px;font:13px Inter;
-}
-textarea{min-height:100px;resize:vertical}
-.avatar-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:20px 0}
-.avatar-option{
- text-align:center;background:#0b1427;border:1px solid var(--border);
- padding:13px 5px;border-radius:12px;cursor:pointer;
-}
-.avatar-option:hover{border-color:var(--blue)}
-.avatar-option .face{font-size:36px;display:block;margin-bottom:8px}
-.avatar-option small{color:var(--muted);font-size:10px}
-.avatar-option.selected{border-color:var(--blue);box-shadow:0 0 14px #42baff33}
-.post{margin-top:17px}
-.post-head{display:flex;align-items:center;gap:12px;margin-bottom:14px}
-.post-avatar{font-size:29px;width:48px;height:48px;display:grid;place-items:center;background:#202f4c;border-radius:50%}
-.post-meta{font-size:10px;color:var(--muted);margin-top:4px}
-.post-content{white-space:pre-wrap;overflow-wrap:anywhere;margin:12px 0}
-.post a{color:var(--blue);overflow-wrap:anywhere}
-.reward{color:var(--green);font:12px Orbitron;margin:12px 0}
-.locked{opacity:.7}
-.tag{font-size:10px;color:var(--blue);border:1px solid var(--border);padding:6px 9px;border-radius:20px}
-footer{text-align:center;border-top:1px solid var(--border);padding:30px;color:var(--muted);font-size:11px}
-.notice{font-size:11px;padding:12px;background:#132644;border:1px solid #31537b;border-radius:9px;color:#b9d9ff;margin-top:15px}
-@media(max-width:720px){
- .hero{flex-direction:column;align-items:flex-start;padding-top:40px}
- .grid{grid-template-columns:1fr 1fr}
- .two{grid-template-columns:1fr}
- nav{justify-content:center}
-}
-@media(max-width:480px){
- .grid{grid-template-columns:1fr}
- .stats{grid-template-columns:1fr 1fr}
- .avatar-grid{grid-template-columns:repeat(2,1fr)}
- nav a{font-size:10px;margin:0 4px}
-}
+*{box-sizing:border-box}
+body{margin:0;background:#080b18;color:#f4f5ff;font-family:Arial,sans-serif}
+header{padding:20px 6%;display:flex;justify-content:space-between;align-items:center;background:#10152a;border-bottom:1px solid #28345c;position:sticky;top:0;z-index:5}
+.logo{font-size:22px;font-weight:bold;color:#70d9ff}
+nav{display:flex;gap:8px;flex-wrap:wrap}
+button{background:#182747;color:white;border:1px solid #344d7e;padding:10px 14px;border-radius:10px;cursor:pointer}
+button:hover{background:#28558b}
+main{max-width:1100px;margin:auto;padding:24px 16px}
+.page{display:none}.page.active{display:block}
+.hero{padding:35px 24px;border-radius:20px;background:linear-gradient(120deg,#111b40,#39205e,#102d4b);border:1px solid #5262a0;margin-bottom:22px}
+.hero h1{font-size:34px;margin:0 0 10px}
+.hero p{color:#c4d5ff}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:15px}
+.card{background:#111a30;border:1px solid #283b65;border-radius:16px;padding:18px;margin-bottom:14px}
+.card h3{margin-top:5px}
+.muted{color:#a9b7d5;font-size:13px}
+.xp{color:#ffd66b;font-weight:bold}
+input,select,textarea{width:100%;padding:12px;margin:7px 0 12px;background:#080f21;color:white;border:1px solid #35466d;border-radius:9px}
+textarea{min-height:75px;resize:vertical}
+.avatar{width:88px;height:88px;border-radius:50%;border:3px solid #74d9ff;background:#222;object-fit:cover}
+.avatar.small{width:58px;height:58px}
+.avatar-choice{display:flex;align-items:center;gap:10px}
+.profile-head{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.stat{font-size:20px;color:#78ddff;font-weight:bold}
+.post{border-left:3px solid #7c72ff}
+footer{text-align:center;padding:25px;color:#8393b9}
+.hidden{display:none}
 </style>
 </head>
 <body>
+<header>
+ <div class="logo">⚡ AAHIL AI STUDIO</div>
+ <nav>
+  <button onclick="showPage('home')">Home</button>
+  <button onclick="showPage('explore')">Explore</button>
+  <button onclick="showPage('profile')">Profile</button>
+  <button onclick="showPage('create')">Create</button>
+  <button onclick="showPage('tools')">Tools</button>
+ </nav>
+</header>
 
-<nav>
- <div class="logo">AAHIL<span>.</span>AI</div>
- <div>
-  <a href="#home">HOME</a>
-  <a href="#profile">PROFILE</a>
-  <a href="#avatars">AVATARS</a>
-  <a href="#achievements">ACHIEVEMENTS</a>
-  <a href="#community">COMMUNITY</a>
-  <a href="#studio">AI STUDIO</a>
+<main>
+<section id="home" class="page active">
+ <div class="hero">
+  <h1>Welcome to the Anime Creator Universe ✨</h1>
+  <p>Create. Share. Explore. Level up.</p>
+  <button onclick="showPage('explore')">Explore Creators →</button>
+  <button onclick="showPage('create')">Create a Post</button>
  </div>
- <div id="clock">00:00:00</div>
-</nav>
+ <div class="grid">
+  <div class="card"><div class="muted">YOUR CREATOR ID</div><h2 id="homeId">---</h2></div>
+  <div class="card"><div class="muted">YOUR XP</div><div class="stat" id="homeXP">0 XP</div></div>
+  <div class="card"><div class="muted">YOUR RANK</div><div class="stat" id="homeRank">Beginner</div></div>
+ </div>
+ <div class="card">
+  <h2>🎁 Daily XP Reward</h2>
+  <p>Claim 30 XP once per day.</p>
+  <button id="dailyBtn" onclick="claimDaily()">Claim +30 XP</button>
+ </div>
+ <h2>🌟 Featured Creators</h2>
+ <div id="featured" class="grid"></div>
+</section>
 
-<section id="home">
- <div class="container hero">
-  <div>
-   <div class="eyebrow">YOUR CREATOR UNIVERSE</div>
-   <h1>CREATE.<br><span class="gradient">SHARE. LEVEL UP.</span></h1>
-   <p>Build your identity, unlock anime avatars, earn rewards and share your creativity with the world.</p>
-   <a class="btn" href="#profile">MY PROFILE ↗</a>
-   <a class="btn secondary" href="#community">EXPLORE COMMUNITY</a>
+<section id="explore" class="page">
+ <div class="hero"><h1>🔎 Explore Creators</h1><p>Discover creators and visit their demo profiles.</p></div>
+ <input id="search" placeholder="Search creators..." oninput="renderExplore()">
+ <div id="creatorList" class="grid"></div>
+ <div id="creatorDetail"></div>
+</section>
+
+<section id="profile" class="page">
+ <div class="card">
+  <div class="profile-head">
+   <img id="myAvatar" class="avatar" alt="Your avatar">
+   <div><h1 id="myName">Creator</h1><p id="myId" class="muted"></p><div class="xp" id="myXP"></div><div id="myRank"></div></div>
   </div>
-  <div class="avatar bigavatar" id="heroAvatar">⚡</div>
+  <hr>
+  <h3>Edit Profile</h3>
+  <label>Display name</label>
+  <input id="nameInput" maxlength="24" placeholder="Your creator name">
+  <label>Choose an original anime-style avatar</label>
+  <div id="avatarChoices" class="grid"></div>
+  <button onclick="saveProfile()">Save Profile</button>
  </div>
+ <h2>My Posts</h2>
+ <div id="myPosts"></div>
 </section>
 
-<section id="profile">
- <div class="container">
-  <div class="eyebrow">YOUR PLAYER IDENTITY</div>
-  <h2>PLAYER PROFILE.</h2>
-  <div class="panel" style="margin-top:22px">
-   <div class="avatar-row">
-    <div class="avatar" id="profileAvatar">⚡</div>
-    <div>
-     <h3 id="displayName">AAHIL</h3>
-     <p id="displayId">PLAYER ID: loading...</p>
-     <p id="displayRank">BEGINNER · LEVEL 1</p>
-    </div>
-   </div>
-   <div class="stats">
-    <div class="stat"><span class="label">TOTAL XP</span><strong id="xp">0</strong></div>
-    <div class="stat"><span class="label">LEVEL</span><strong id="level">1</strong></div>
-    <div class="stat"><span class="label">POSTS</span><strong id="postCount">0</strong></div>
-   </div>
-   <div class="xpbar"><div class="xpfill" id="xpFill"></div></div>
-   <p id="xpProgress">0 / 500 XP to next rank</p>
-   <br>
-   <label class="label" for="nameInput">YOUR DISPLAY NAME</label>
-   <input id="nameInput" maxlength="20" placeholder="Choose a creator name">
-   <button class="btn" onclick="saveName()">SAVE PROFILE NAME</button>
-   <div class="notice">Your profile ID is created for this browser in this demo. A globally unique account ID will need a shared database.</div>
+<section id="create" class="page">
+ <div class="hero"><h1>📝 Create a Post</h1><p>Share your creativity with the community.</p></div>
+ <div class="card">
+  <label>Post title</label><input id="postTitle" maxlength="70" placeholder="My new project">
+  <label>Description</label><textarea id="postText" maxlength="500" placeholder="Tell us about your work..."></textarea>
+  <label>Project or video link (optional)</label><input id="postLink" placeholder="https://...">
+  <button onclick="createPost()">Publish Post</button>
+ </div>
+ <h2>Community Feed</h2><div id="feed"></div>
+</section>
+
+<section id="tools" class="page">
+ <div class="hero"><h1>🛠 Creator Tools</h1><p>Your mini productivity corner.</p></div>
+ <div class="grid">
+  <div class="card">
+   <h2>🧮 Calculator</h2>
+   <input id="num1" type="number" placeholder="First number">
+   <select id="operator"><option value="+">+</option><option value="-">−</option><option value="*">×</option><option value="/">÷</option></select>
+   <input id="num2" type="number" placeholder="Second number">
+   <button onclick="calculate()">Calculate</button>
+   <h3 id="calcResult">Result: --</h3>
   </div>
- </div>
-</section>
-
-<section id="daily">
- <div class="container">
-  <div class="eyebrow">DAILY LOGIN REWARD</div>
-  <h2>CLAIM YOUR DAILY XP.</h2>
-  <div class="panel" style="margin-top:20px">
-   <div class="avatar-row">
-    <div style="font-size:45px">🎁</div>
-    <div><h3>DAILY REWARD</h3><p>Claim 30 XP once per day.</p></div>
-   </div>
-   <div class="reward">+30 XP EVERY DAY</div>
-   <button class="btn" id="dailyButton" onclick="claimDaily()">CLAIM 30 XP</button>
-   <p id="dailyStatus" style="margin-top:12px">Your daily reward is waiting.</p>
-  </div>
- </div>
-</section>
-
-<section id="avatars">
- <div class="container">
-  <div class="eyebrow">CUSTOMIZE YOUR IDENTITY</div>
-  <h2>ANIME AVATAR COLLECTION.</h2>
-  <p>Four avatars are free. Unlock other avatars with your XP.</p>
-  <div class="avatar-grid" id="avatarGrid"></div>
-  <div class="notice">Avatar prices are demo XP values. Unlocks are saved only in this browser.</div>
- </div>
-</section>
-
-<section id="achievements">
- <div class="container">
-  <div class="eyebrow">YOUR MILESTONES</div>
-  <h2>ACHIEVEMENTS.</h2>
-  <div class="grid">
-   <div class="panel"><h3>FIRST CREATION</h3><p>Publish your first work.</p><div class="reward">+100 XP</div></div>
-   <div class="panel"><h3>CREATOR</h3><p>Publish five works.</p><div class="reward">+200 XP</div></div>
-   <div class="panel"><h3>AI EXPLORER</h3><p>Share your first AI video.</p><div class="reward">+150 XP</div></div>
-  </div>
-  <p style="margin-top:15px">Achievement rewards will be verified and activated through the backend in a later phase. Daily XP is active in this local demo.</p>
- </div>
-</section>
-
-<section id="community">
- <div class="container">
-  <div class="eyebrow">CREATORS COMMUNITY</div>
-  <h2>SHARE YOUR WORK.</h2>
-  <p>Post your projects, AI videos and creative work.</p>
-  <div class="two">
-   <div class="panel">
-    <h3>CREATE A POST</h3>
-    <label class="label">POST TITLE</label>
-    <input id="postTitle" maxlength="70" placeholder="Give your work a title">
-    <label class="label">DESCRIPTION</label>
-    <textarea id="postDescription" maxlength="1200" placeholder="Tell everyone about your creation..."></textarea>
-    <label class="label">WORK TYPE</label>
-    <select id="postType">
-     <option>Creative Project</option>
-     <option>AI Video</option>
-     <option>Website</option>
-     <option>Artwork</option>
-     <option>Other</option>
-    </select>
-    <label class="label">VIDEO OR PROJECT LINK (OPTIONAL)</label>
-    <input id="postLink" type="url" placeholder="https://...">
-    <button class="btn" onclick="createPost()">PUBLISH WORK ↗</button>
-    <p id="postMessage" style="margin-top:10px"></p>
-   </div>
-   <div class="panel">
-    <h3>YOUR CREATOR CARD</h3>
-    <div class="avatar-row" style="margin-top:22px">
-     <div class="avatar" id="communityAvatar">⚡</div>
-     <div><h3 id="communityName">AAHIL</h3><p id="communityId">PLAYER ID</p><p id="communityRank">BEGINNER</p></div>
-    </div>
-    <div class="notice">In this version, your posts appear on this browser only. A shared public feed and other users' profiles require a backend.</div>
-   </div>
-  </div>
-  <h3 style="margin-top:35px">MY POSTS</h3>
-  <div id="posts"></div>
- </div>
-</section>
-
-<section id="studio">
- <div class="container">
-  <div class="eyebrow">CREATE WITH AI</div>
-  <h2>AI VIDEO STUDIO.</h2>
-  <div class="panel" style="margin-top:20px">
-   <div style="font-size:42px">🎬</div>
-   <h3 style="margin:15px 0">YOUR NEXT MASTERPIECE</h3>
-   <p>AI video generation will be connected through a secure AI service in a future phase. You will be able to spend XP to create videos.</p>
-   <div class="reward">VIDEO GENERATION: COMING SOON</div>
+  <div class="card">
+   <h2>✅ Task Tracker</h2>
+   <input id="taskInput" maxlength="100" placeholder="Enter a task">
+   <button onclick="addTask()">Add Task</button>
+   <div id="tasks"></div>
   </div>
  </div>
 </section>
-
-<section id="store">
- <div class="container">
-  <div class="eyebrow">XP MARKETPLACE</div>
-  <h2>XP STORE.</h2>
-  <div class="grid">
-   <div class="panel"><h3>STARTER</h3><div class="reward">500 XP</div><p>Coming soon</p></div>
-   <div class="panel"><h3>CREATOR</h3><div class="reward">1,200 XP</div><p>Coming soon</p></div>
-   <div class="panel"><h3>ULTIMATE</h3><div class="reward">7,000 XP</div><p>Coming soon</p></div>
-  </div>
-  <p style="margin-top:15px">No real payments are enabled. Payment integration will require a secure backend and parent/guardian-managed arrangements.</p>
- </div>
-</section>
-
-<footer>
- <div class="logo">AAHIL<span>.</span>AI</div>
- <p>CREATE YOUR WORLD. SHARE YOUR VISION.</p>
- <p>Built with creativity · 2026</p>
-</footer>
+</main>
+<footer>AAHIL AI STUDIO 2.0 · Anime Creator Community</footer>
 
 <script>
-const KEY="aahilCommunityDemoV1";
-
-const avatarList=[
- {id:"spark",emoji:"⚡",name:"Spark",cost:0},
- {id:"blue",emoji:"🧊",name:"Frost",cost:0},
- {id:"star",emoji:"🌟",name:"Star",cost:0},
- {id:"moon",emoji:"🌙",name:"Moon",cost:0},
- {id:"fire",emoji:"🔥",name:"Inferno",cost:100},
- {id:"ninja",emoji:"🥷",name:"Shadow",cost:150},
- {id:"crown",emoji:"👑",name:"Royal",cost:200},
- {id:"dragon",emoji:"🐉",name:"Dragon",cost:300},
- {id:"crystal",emoji:"💎",name:"Crystal",cost:400},
- {id:"cosmic",emoji:"☄️",name:"Cosmic",cost:500},
- {id:"phantom",emoji:"👾",name:"Phantom",cost:650},
- {id:"legend",emoji:"🪽",name:"Legend",cost:800}
+const avatarColors=[
+ ["#ff8cba","#6035a4"],["#62dcff","#174b99"],
+ ["#ffc56c","#a43e54"],["#b7a0ff","#3b397d"],
+ ["#7ce7c2","#176b70"],["#ff9d78","#8c315a"],
+ ["#a5d7ff","#34518b"],["#e9a8ff","#713a91"],
+ ["#ffe18b","#97612b"],["#9ff0ee","#286c8d"]
 ];
 
-function newId(){
- const chars="ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
- let id="AA-";
- for(let i=0;i<8;i++)id+=chars[Math.floor(Math.random()*chars.length)];
- return id;
+function avatarSVG(i){
+ const c=avatarColors[i%avatarColors.length];
+ const svg=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+ <defs><linearGradient id="g" x2="1" y2="1"><stop stop-color="${c[0]}"/><stop offset="1" stop-color="${c[1]}"/></linearGradient></defs>
+ <rect width="120" height="120" rx="60" fill="url(#g)"/>
+ <path d="M20 120 Q22 80 60 80 Q98 80 100 120" fill="#18223e"/>
+ <ellipse cx="60" cy="57" rx="29" ry="35" fill="#ffd6bd"/>
+ <path d="M30 55 Q18 12 55 18 Q88 3 91 48 L81 39 72 25 62 40 48 29 37 53Z" fill="#202039"/>
+ <path d="M43 57 Q51 49 57 57 M65 57 Q73 49 79 57" fill="none" stroke="#25244b" stroke-width="4" stroke-linecap="round"/>
+ <circle cx="51" cy="60" r="3" fill="#42cfff"/><circle cx="72" cy="60" r="3" fill="#42cfff"/>
+ <path d="M54 73 Q60 78 67 73" fill="none" stroke="#a54c62" stroke-width="2" stroke-linecap="round"/>
+ <path d="M32 45 Q24 22 49 16 Q78 3 91 35 L77 28 65 34 54 24 41 38Z" fill="#202039"/>
+ </svg>`;
+ return "data:image/svg+xml;charset=utf-8,"+encodeURIComponent(svg);
 }
 
-function freshData(){
- return {
-  id:newId(),name:"AAHIL",xp:0,avatar:"spark",
-  unlocked:["spark","blue","star","moon"],
-  lastDaily:"",posts:[]
- };
+const sampleCreators=[
+ {id:"ANIME204",name:"Shadow Senpai",xp:850,avatar:1,bio:"Anime editor and digital creator.",posts:["My anime edit collection","Cyber city artwork"]},
+ {id:"CREATOR777",name:"Mika Star",xp:620,avatar:2,bio:"Art, animation and creativity.",posts:["My first character design"]},
+ {id:"NOVA009",name:"NovaX",xp:1200,avatar:3,bio:"Gaming and AI video creator.",posts:["New AI video project"]},
+ {id:"KIRA555",name:"Kira Studio",xp:430,avatar:4,bio:"Learning animation every day.",posts:["My creator journey"]}
+];
+
+const load=(k,d)=>{try{return JSON.parse(localStorage.getItem(k))??d}catch{return d}};
+const save=(k,v)=>localStorage.setItem(k,JSON.stringify(v));
+let user=load("aas_user",null);
+if(!user){
+ user={id:"AA-"+Math.random().toString(36).slice(2,8).toUpperCase(),name:"Aahil Creator",xp:0,avatar:0};
+ save("aas_user",user);
 }
+let posts=load("aas_posts",[]);
+let tasks=load("aas_tasks",[]);
+let gifts=load("aas_gifts",[]);
 
-let data;
-try{
- data=JSON.parse(localStorage.getItem(KEY))||freshData();
- if(!data.id||!Array.isArray(data.unlocked)||!Array.isArray(data.posts))data=freshData();
-}catch(e){data=freshData()}
-
-function save(){
- localStorage.setItem(KEY,JSON.stringify(data));
- render();
+function rank(x){return x>=2000?"Legend":x>=1000?"Master":x>=500?"Pro":x>=100?"Creator":"Beginner"}
+function update(){
+ document.getElementById("homeId").textContent=user.id;
+ document.getElementById("homeXP").textContent=user.xp+" XP";
+ document.getElementById("homeRank").textContent=rank(user.xp);
+ document.getElementById("myName").textContent=user.name;
+ document.getElementById("myId").textContent="ID: "+user.id;
+ document.getElementById("myXP").textContent=user.xp+" XP";
+ document.getElementById("myRank").textContent="Rank: "+rank(user.xp);
+ document.getElementById("myAvatar").src=avatarSVG(user.avatar);
+ document.getElementById("nameInput").value=user.name;
+ document.getElementById("dailyBtn").disabled=user.lastClaim===new Date().toDateString();
+ document.getElementById("dailyBtn").textContent=document.getElementById("dailyBtn").disabled?"Today's XP claimed":"Claim +30 XP";
 }
-
-function rankInfo(){
- const xp=data.xp;
- if(xp>=4000)return {rank:"LEGEND",level:41,next:5000};
- if(xp>=2000)return {rank:"MASTER",level:21,next:4000};
- if(xp>=1000)return {rank:"ELITE",level:11,next:2000};
- if(xp>=500)return {rank:"WARRIOR",level:6,next:1000};
- return {rank:"BEGINNER",level:1,next:500};
+function showPage(id){
+ document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+ document.getElementById(id).classList.add("active");
+ if(id==="profile")renderProfile();
+ if(id==="explore")renderExplore();
+ if(id==="create")renderFeed();
+ if(id==="tools")renderTasks();
+ update();
 }
-
-function render(){
- const rank=rankInfo();
- const avatar=avatarList.find(a=>a.id===data.avatar)||avatarList[0];
- const name=data.name.toUpperCase();
-
- document.getElementById("xp").textContent=data.xp;
- document.getElementById("level").textContent=rank.level;
- document.getElementById("postCount").textContent=data.posts.length;
- document.getElementById("displayName").textContent=name;
- document.getElementById("displayId").textContent="PLAYER ID: "+data.id;
- document.getElementById("displayRank").textContent=rank.rank+" · LEVEL "+rank.level;
- document.getElementById("xpProgress").textContent=data.xp+" / "+rank.next+" XP";
- document.getElementById("xpFill").style.width=Math.min(100,data.xp/rank.next*100)+"%";
- document.getElementById("nameInput").value=data.name;
- document.getElementById("profileAvatar").textContent=avatar.emoji;
- document.getElementById("heroAvatar").textContent=avatar.emoji;
- document.getElementById("communityAvatar").textContent=avatar.emoji;
- document.getElementById("communityName").textContent=name;
- document.getElementById("communityId").textContent=data.id;
- document.getElementById("communityRank").textContent=rank.rank+" · LEVEL "+rank.level;
-
- const today=new Date().toLocaleDateString("en-CA");
- const claimed=data.lastDaily===today;
- document.getElementById("dailyButton").disabled=claimed;
- document.getElementById("dailyButton").textContent=claimed?"ALREADY CLAIMED":"CLAIM 30 XP";
- document.getElementById("dailyStatus").textContent=claimed?
- "You have already claimed today's reward. Come back tomorrow!":
- "Your 30 XP daily reward is ready.";
-
- renderAvatars();
- renderPosts();
-}
-
-function saveName(){
- const input=document.getElementById("nameInput");
- const name=input.value.trim();
- if(!name){alert("Please enter a name.");return}
- data.name=name.slice(0,20);
- save();
- alert("Profile name saved!");
-}
-
 function claimDaily(){
- const today=new Date().toLocaleDateString("en-CA");
- if(data.lastDaily===today)return;
- data.xp+=30;
- data.lastDaily=today;
- save();
- alert("30 XP claimed! Keep creating!");
+ if(user.lastClaim===new Date().toDateString())return alert("You already claimed today's XP!");
+ user.xp+=30;user.lastClaim=new Date().toDateString();save("aas_user",user);update();
 }
-
+function saveProfile(){
+ user.name=document.getElementById("nameInput").value.trim()||"Creator";
+ save("aas_user",user);update();alert("Profile saved!");
+}
 function renderAvatars(){
- const grid=document.getElementById("avatarGrid");
- grid.innerHTML="";
- avatarList.forEach(a=>{
-  const unlocked=data.unlocked.includes(a.id);
-  const selected=data.avatar===a.id;
-  const card=document.createElement("div");
-  card.className="avatar-option"+(selected?" selected":"")+(unlocked?"":" locked");
-  const face=document.createElement("span");
-  face.className="face";
-  face.textContent=a.emoji;
-  const title=document.createElement("strong");
-  title.textContent=a.name;
-  const cost=document.createElement("small");
-  cost.textContent=unlocked?(selected?"SELECTED":"FREE / UNLOCKED"):a.cost+" XP";
-  card.append(face,title,document.createElement("br"),cost);
-  card.addEventListener("click",()=>chooseAvatar(a));
-  grid.appendChild(card);
+ const box=document.getElementById("avatarChoices");box.innerHTML="";
+ avatarColors.forEach((c,i)=>{
+ const div=document.createElement("div");div.className="card avatar-choice";
+ const img=document.createElement("img");img.src=avatarSVG(i);img.className="avatar small";
+ const btn=document.createElement("button");btn.textContent=user.avatar===i?"Selected":"Choose";
+ btn.onclick=()=>{user.avatar=i;save("aas_user",user);renderAvatars();update()};
+ div.append(img,btn);box.append(div);
  });
 }
-
-function chooseAvatar(a){
- if(data.unlocked.includes(a.id)){
-  data.avatar=a.id;
-  save();
-  return;
- }
- if(data.xp<a.cost){
-  alert("Not enough XP. Earn your daily reward or complete achievements!");
-  return;
- }
- if(!confirm("Unlock "+a.name+" avatar for "+a.cost+" XP?"))return;
- data.xp-=a.cost;
- data.unlocked.push(a.id);
- data.avatar=a.id;
- save();
- alert(a.name+" avatar unlocked!");
+function renderProfile(){
+ renderAvatars();
+ const box=document.getElementById("myPosts");box.innerHTML="";
+ const mine=posts.filter(p=>p.owner===user.id);
+ if(!mine.length)box.textContent="You haven't posted anything yet.";
+ mine.forEach(p=>box.append(makePost(p)));
 }
-
+function renderExplore(){
+ const q=(document.getElementById("search").value||"").toLowerCase();
+ const box=document.getElementById("creatorList");box.innerHTML="";
+ sampleCreators.filter(c=>(c.name+c.id).toLowerCase().includes(q)).forEach(c=>{
+ const card=document.createElement("div");card.className="card";
+ const img=document.createElement("img");img.src=avatarSVG(c.avatar);img.className="avatar";
+ const h=document.createElement("h3");h.textContent=c.name;
+ const info=document.createElement("p");info.textContent=c.id+" · "+c.xp+" XP";
+ const b=document.createElement("button");b.textContent="View Profile";b.onclick=()=>viewCreator(c.id);
+ card.append(img,h,info,b);box.append(card);
+ });
+}
+function viewCreator(id){
+ const c=sampleCreators.find(x=>x.id===id);if(!c)return;
+ const box=document.getElementById("creatorDetail");box.innerHTML="";
+ const card=document.createElement("div");card.className="card";
+ const img=document.createElement("img");img.src=avatarSVG(c.avatar);img.className="avatar";
+ const h=document.createElement("h2");h.textContent=c.name;
+ const bio=document.createElement("p");bio.textContent=c.bio;
+ const xp=document.createElement("p");xp.textContent=c.xp+" XP · ID: "+c.id;
+ const gift=document.createElement("input");gift.type="number";gift.min="1";gift.max="100";gift.placeholder="XP amount (max 100)";
+ const btn=document.createElement("button");btn.textContent="🎁 Send Demo XP";
+ btn.onclick=()=>giftXP(c.id,gift.value);
+ card.append(img,h,bio,xp,gift,btn);
+ const postsTitle=document.createElement("h3");postsTitle.textContent="Creator Posts";
+ card.append(postsTitle);
+ c.posts.forEach(t=>{const p=document.createElement("p");p.textContent="✦ "+t;card.append(p)});
+ box.replaceChildren(card);
+}
+function giftXP(id,amount){
+ amount=Number(amount);
+ if(!Number.isInteger(amount)||amount<1||amount>100)return alert("Enter 1 to 100 XP.");
+ if(user.xp<amount)return alert("Not enough XP!");
+ const creator=sampleCreators.find(c=>c.id===id);
+ if(!creator)return;
+ user.xp-=amount;creator.xp+=amount;
+ gifts.push({to:id,amount,date:new Date().toLocaleString()});
+ save("aas_user",user);save("aas_gifts",gifts);save("aas_demo_creators",sampleCreators);
+ update();renderExplore();viewCreator(id);
+ alert("Demo gift sent! This only changes this browser's demo data.");
+}
 function createPost(){
  const title=document.getElementById("postTitle").value.trim();
- const description=document.getElementById("postDescription").value.trim();
- const type=document.getElementById("postType").value;
+ const text=document.getElementById("postText").value.trim();
  const link=document.getElementById("postLink").value.trim();
-
- if(!title||!description){
-  document.getElementById("postMessage").textContent="Please enter a title and description.";
-  return;
- }
- if(link){
-  try{
-   const url=new URL(link);
-   if(!["http:","https:"].includes(url.protocol))throw new Error();
-  }catch(e){
-   document.getElementById("postMessage").textContent="Please enter a valid web link.";
-   return;
-  }
- }
- const post={
-  id:Date.now(),title,description,type,link,
-  author:data.name,playerId:data.id,
-  avatar:data.avatar,date:new Date().toLocaleString()
- };
- data.posts.unshift(post);
- save();
+ if(!title||!text)return alert("Please add a title and description.");
+ if(link&&!/^https?:\/\//i.test(link))return alert("Use a valid link starting with https://");
+ posts.unshift({id:Date.now(),owner:user.id,name:user.name,title,text,link,avatar:user.avatar});
+ save("aas_posts",posts);
  document.getElementById("postTitle").value="";
- document.getElementById("postDescription").value="";
+ document.getElementById("postText").value="";
  document.getElementById("postLink").value="";
- document.getElementById("postMessage").textContent="Your work has been posted!";
+ renderFeed();alert("Post published in this browser!");
 }
-
-function renderPosts(){
- const area=document.getElementById("posts");
- area.innerHTML="";
- if(!data.posts.length){
-  area.innerHTML='<div class="panel post"><p>No posts yet. Share your first creation!</p></div>';
-  return;
- }
- data.posts.forEach(post=>{
-  const card=document.createElement("div");
-  card.className="panel post";
-  const head=document.createElement("div");
-  head.className="post-head";
-  const face=document.createElement("div");
-  face.className="post-avatar";
-  const av=avatarList.find(a=>a.id===post.avatar)||avatarList[0];
-  face.textContent=av.emoji;
-  const author=document.createElement("div");
-  const who=document.createElement("strong");
-  who.textContent=post.author;
-  const meta=document.createElement("div");
-  meta.className="post-meta";
-  meta.textContent=post.playerId+" · "+post.date;
-  author.append(who,meta);
-  head.append(face,author);
-
-  const heading=document.createElement("h3");
-  heading.textContent=post.title;
-  const type=document.createElement("span");
-  type.className="tag";
-  type.textContent=post.type;
-  const desc=document.createElement("p");
-  desc.className="post-content";
-  desc.textContent=post.description;
-  card.append(head,heading,type,desc);
-
-  if(post.link){
-   const link=document.createElement("a");
-   link.href=post.link;
-   link.target="_blank";
-   link.rel="noopener noreferrer";
-   link.textContent="Open project / video ↗";
-   card.appendChild(link);
-  }
-  const remove=document.createElement("button");
-  remove.className="btn secondary";
-  remove.style.marginTop="18px";
-  remove.textContent="DELETE MY POST";
-  remove.addEventListener("click",()=>{
-   if(!confirm("Delete this post?"))return;
-   data.posts=data.posts.filter(p=>p.id!==post.id);
-   save();
-  });
-  card.appendChild(remove);
-  area.appendChild(card);
+function makePost(p){
+ const card=document.createElement("div");card.className="card post";
+ const h=document.createElement("h3");h.textContent=p.title;
+ const who=document.createElement("div");who.className="muted";who.textContent=p.name+" · "+p.owner;
+ const body=document.createElement("p");body.textContent=p.text;
+ card.append(who,h,body);
+ if(p.link){const a=document.createElement("a");a.href=p.link;a.target="_blank";a.rel="noopener noreferrer";a.textContent="Open project link";a.style.color="#78ddff";card.append(a)}
+ if(p.owner===user.id){const del=document.createElement("button");del.textContent="Delete";del.onclick=()=>{posts=posts.filter(x=>x.id!==p.id);save("aas_posts",posts);renderFeed();renderProfile()};card.append(del)}
+ return card;
+}
+function renderFeed(){
+ const box=document.getElementById("feed");box.innerHTML="";
+ if(!posts.length){box.textContent="No posts yet. Be the first creator!";return}
+ posts.forEach(p=>box.append(makePost(p)));
+}
+function calculate(){
+ const a=Number(document.getElementById("num1").value),b=Number(document.getElementById("num2").value);
+ const op=document.getElementById("operator").value;
+ if(document.getElementById("num1").value===""||document.getElementById("num2").value==="")return;
+ if(op==="/"&&b===0)return document.getElementById("calcResult").textContent="Cannot divide by zero";
+ const result=op==="+"?a+b:op==="-"?a-b:op==="*"?a*b:a/b;
+ document.getElementById("calcResult").textContent="Result: "+result;
+}
+function addTask(){
+ const input=document.getElementById("taskInput"),value=input.value.trim();if(!value)return;
+ tasks.push({text:value,done:false});save("aas_tasks",tasks);input.value="";renderTasks();
+}
+function renderTasks(){
+ const box=document.getElementById("tasks");box.innerHTML="";
+ tasks.forEach((t,i)=>{
+ const row=document.createElement("div");row.className="card";
+ const label=document.createElement("label");const check=document.createElement("input");
+ check.type="checkbox";check.checked=t.done;check.style.width="auto";
+ check.onchange=()=>{tasks[i].done=check.checked;save("aas_tasks",tasks);renderTasks()};
+ label.append(check,document.createTextNode(" "+t.text));
+ const del=document.createElement("button");del.textContent="Delete";
+ del.onclick=()=>{tasks.splice(i,1);save("aas_tasks",tasks);renderTasks()};
+ row.append(label,del);box.append(row);
  });
 }
-
-function updateClock(){
- document.getElementById("clock").textContent=
- new Date().toLocaleTimeString("en-GB",{hour12:false});
+function renderFeatured(){
+ const box=document.getElementById("featured");box.innerHTML="";
+ sampleCreators.slice(0,3).forEach(c=>{
+ const d=document.createElement("div");d.className="card";
+ const img=document.createElement("img");img.src=avatarSVG(c.avatar);img.className="avatar small";
+ const h=document.createElement("h3");h.textContent=c.name;
+ const b=document.createElement("button");b.textContent="Explore";b.onclick=()=>{showPage("explore");viewCreator(c.id)};
+ d.append(img,h,b);box.append(d);
+ });
 }
-updateClock();
-setInterval(updateClock,1000);
-render();
+const storedCreators=load("aas_demo_creators",null);
+if(storedCreators)sampleCreators.splice(0,sampleCreators.length,...storedCreators);
+update();renderFeatured();renderExplore();renderFeed();renderTasks();
 </script>
 </body>
 </html>
