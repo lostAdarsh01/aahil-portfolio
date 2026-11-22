@@ -4,327 +4,591 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Aahil AI Studio 2.0</title>
+<title>AAHIL AI STUDIO 2.0</title>
 <style>
 *{box-sizing:border-box}
 body{margin:0;background:#080b18;color:#f4f5ff;font-family:Arial,sans-serif}
-header{padding:20px 6%;display:flex;justify-content:space-between;align-items:center;background:#10152a;border-bottom:1px solid #28345c;position:sticky;top:0;z-index:5}
-.logo{font-size:22px;font-weight:bold;color:#70d9ff}
-nav{display:flex;gap:8px;flex-wrap:wrap}
-button{background:#182747;color:white;border:1px solid #344d7e;padding:10px 14px;border-radius:10px;cursor:pointer}
-button:hover{background:#28558b}
-main{max-width:1100px;margin:auto;padding:24px 16px}
-.page{display:none}.page.active{display:block}
-.hero{padding:35px 24px;border-radius:20px;background:linear-gradient(120deg,#111b40,#39205e,#102d4b);border:1px solid #5262a0;margin-bottom:22px}
-.hero h1{font-size:34px;margin:0 0 10px}
-.hero p{color:#c4d5ff}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:15px}
-.card{background:#111a30;border:1px solid #283b65;border-radius:16px;padding:18px;margin-bottom:14px}
-.card h3{margin-top:5px}
-.muted{color:#a9b7d5;font-size:13px}
+header{position:sticky;top:0;z-index:5;background:#10152af2;border-bottom:1px solid #35406b;padding:14px 5%;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.logo{font-weight:900;font-size:21px;color:#80ddff}
+nav{display:flex;gap:7px;flex-wrap:wrap}
+button{background:#202b50;color:white;border:1px solid #46598c;border-radius:10px;padding:10px 13px;cursor:pointer}
+button:hover{background:#4930a0}
+button:disabled{opacity:.45;cursor:not-allowed}
+main{max-width:1120px;margin:auto;padding:22px 15px}
+.page{display:none}
+.page.active{display:block}
+.hero{padding:30px;border-radius:20px;background:linear-gradient(120deg,#111b40,#38205f,#102d4b);border:1px solid #5666a6;margin-bottom:18px}
+.hero h1{font-size:clamp(25px,4vw,38px);margin:0 0 10px}
+.muted{color:#aab9d9;font-size:13px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:13px}
+.card{background:#111a30;border:1px solid #2c3e68;border-radius:15px;padding:16px;margin-bottom:13px}
+.stat{font-size:22px;color:#80ddff;font-weight:bold}
 .xp{color:#ffd66b;font-weight:bold}
-input,select,textarea{width:100%;padding:12px;margin:7px 0 12px;background:#080f21;color:white;border:1px solid #35466d;border-radius:9px}
-textarea{min-height:75px;resize:vertical}
-.avatar{width:88px;height:88px;border-radius:50%;border:3px solid #74d9ff;background:#222;object-fit:cover}
+input,textarea,select{width:100%;padding:11px;margin:7px 0 12px;background:#080f21;color:white;border:1px solid #3b4d76;border-radius:9px}
+textarea{min-height:80px}
+.avatar{width:88px;height:88px;border-radius:50%;border:3px solid #7bdcff;background-image:url('anime-roster.png');background-repeat:no-repeat;background-size:1000% 500%;flex-shrink:0}
 .avatar.small{width:58px;height:58px}
-.avatar-choice{display:flex;align-items:center;gap:10px}
-.profile-head{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
-.stat{font-size:20px;color:#78ddff;font-weight:bold}
-.post{border-left:3px solid #7c72ff}
-footer{text-align:center;padding:25px;color:#8393b9}
-.hidden{display:none}
+.avatar.large{width:112px;height:112px}
+.avatar-option{display:flex;align-items:center;gap:10px}
+.avatar-option .avatar{width:64px;height:64px}
+.profile-head{display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+.post{border-left:3px solid #8a69ff}
+hr{border:0;border-top:1px solid #394767;margin:16px 0}
+footer{text-align:center;color:#8393b9;padding:25px}
+.smallbtn{padding:7px 10px;font-size:12px}
 </style>
 </head>
 <body>
 <header>
- <div class="logo">⚡ AAHIL AI STUDIO</div>
- <nav>
-  <button onclick="showPage('home')">Home</button>
-  <button onclick="showPage('explore')">Explore</button>
-  <button onclick="showPage('profile')">Profile</button>
-  <button onclick="showPage('create')">Create</button>
-  <button onclick="showPage('tools')">Tools</button>
- </nav>
+<div class="logo">⚡ AAHIL AI STUDIO 2.0</div>
+<nav>
+<button onclick="page('home')">Home</button>
+<button onclick="page('explore')">Explore</button>
+<button onclick="page('profile')">Profile</button>
+<button onclick="page('create')">Create</button>
+<button onclick="page('tools')">Tools</button>
+</nav>
 </header>
 
 <main>
 <section id="home" class="page active">
- <div class="hero">
-  <h1>Welcome to the Anime Creator Universe ✨</h1>
-  <p>Create. Share. Explore. Level up.</p>
-  <button onclick="showPage('explore')">Explore Creators →</button>
-  <button onclick="showPage('create')">Create a Post</button>
- </div>
- <div class="grid">
-  <div class="card"><div class="muted">YOUR CREATOR ID</div><h2 id="homeId">---</h2></div>
-  <div class="card"><div class="muted">YOUR XP</div><div class="stat" id="homeXP">0 XP</div></div>
-  <div class="card"><div class="muted">YOUR RANK</div><div class="stat" id="homeRank">Beginner</div></div>
- </div>
- <div class="card">
-  <h2>🎁 Daily XP Reward</h2>
-  <p>Claim 30 XP once per day.</p>
-  <button id="dailyBtn" onclick="claimDaily()">Claim +30 XP</button>
- </div>
- <h2>🌟 Featured Creators</h2>
- <div id="featured" class="grid"></div>
+<div class="hero">
+<h1>Welcome to your Anime Creator Universe ✨</h1>
+<p>Create. Share. Explore. Level up.</p>
+<button onclick="page('explore')">Explore Creators →</button>
+</div>
+<div class="grid">
+<div class="card"><div class="muted">YOUR CREATOR ID</div><h2 id="homeId">--</h2></div>
+<div class="card"><div class="muted">YOUR XP</div><div class="stat" id="homeXP">0 XP</div></div>
+<div class="card"><div class="muted">YOUR RANK</div><div class="stat" id="homeRank">Beginner</div></div>
+</div>
+<div class="card">
+<h2>🎁 Daily Reward</h2>
+<p>Claim 30 XP once per day.</p>
+<button id="dailyBtn" onclick="daily()">Claim +30 XP</button>
+</div>
+<h2>🌟 Featured Creators</h2>
+<div id="featured" class="grid"></div>
 </section>
 
 <section id="explore" class="page">
- <div class="hero"><h1>🔎 Explore Creators</h1><p>Discover creators and visit their demo profiles.</p></div>
- <input id="search" placeholder="Search creators..." oninput="renderExplore()">
- <div id="creatorList" class="grid"></div>
- <div id="creatorDetail"></div>
+<div class="hero">
+<h1>🔎 Explore Creators</h1>
+<p>Discover demo creator profiles and their posts.</p>
+</div>
+<input id="search" placeholder="Search creator name or ID..." oninput="renderExplore()">
+<div id="creatorList" class="grid"></div>
+<div id="creatorDetail"></div>
 </section>
 
 <section id="profile" class="page">
- <div class="card">
-  <div class="profile-head">
-   <img id="myAvatar" class="avatar" alt="Your avatar">
-   <div><h1 id="myName">Creator</h1><p id="myId" class="muted"></p><div class="xp" id="myXP"></div><div id="myRank"></div></div>
-  </div>
-  <hr>
-  <h3>Edit Profile</h3>
-  <label>Display name</label>
-  <input id="nameInput" maxlength="24" placeholder="Your creator name">
-  <label>Choose an original anime-style avatar</label>
-  <div id="avatarChoices" class="grid"></div>
-  <button onclick="saveProfile()">Save Profile</button>
- </div>
- <h2>My Posts</h2>
- <div id="myPosts"></div>
+<div class="card">
+<div class="profile-head">
+<div id="myAvatar" class="avatar large"></div>
+<div>
+<h1 id="myName">Creator</h1>
+<div id="myId" class="muted"></div>
+<div id="myXP" class="xp"></div>
+<div id="myRank"></div>
+</div>
+</div>
+<hr>
+<h3>Edit Profile</h3>
+<label>Display name</label>
+<input id="nameInput" maxlength="24">
+<h3>Choose your profile picture</h3>
+<p class="muted">Free: Inosuke, Gojo, Todoroki and Loid (slots 1–4). The other 46 avatars start at 300 XP; each next slot costs 25 XP more.</p>
+<div id="avatarChoices" class="grid"></div>
+<button onclick="saveProfile()">Save Profile</button>
+</div>
+<h2>My Posts</h2>
+<div id="myPosts"></div>
 </section>
 
 <section id="create" class="page">
- <div class="hero"><h1>📝 Create a Post</h1><p>Share your creativity with the community.</p></div>
- <div class="card">
-  <label>Post title</label><input id="postTitle" maxlength="70" placeholder="My new project">
-  <label>Description</label><textarea id="postText" maxlength="500" placeholder="Tell us about your work..."></textarea>
-  <label>Project or video link (optional)</label><input id="postLink" placeholder="https://...">
-  <button onclick="createPost()">Publish Post</button>
- </div>
- <h2>Community Feed</h2><div id="feed"></div>
+<div class="hero">
+<h1>📝 Creator Community</h1>
+<p>Share your work with the demo feed.</p>
+</div>
+<div class="card">
+<input id="postTitle" maxlength="70" placeholder="Post title">
+<textarea id="postText" maxlength="500" placeholder="Write about your creation..."></textarea>
+<input id="postLink" placeholder="Optional project link (https://...)">
+<button onclick="createPost()">Publish Post</button>
+</div>
+<h2>Community Feed</h2>
+<div id="feed"></div>
 </section>
 
 <section id="tools" class="page">
- <div class="hero"><h1>🛠 Creator Tools</h1><p>Your mini productivity corner.</p></div>
- <div class="grid">
-  <div class="card">
-   <h2>🧮 Calculator</h2>
-   <input id="num1" type="number" placeholder="First number">
-   <select id="operator"><option value="+">+</option><option value="-">−</option><option value="*">×</option><option value="/">÷</option></select>
-   <input id="num2" type="number" placeholder="Second number">
-   <button onclick="calculate()">Calculate</button>
-   <h3 id="calcResult">Result: --</h3>
-  </div>
-  <div class="card">
-   <h2>✅ Task Tracker</h2>
-   <input id="taskInput" maxlength="100" placeholder="Enter a task">
-   <button onclick="addTask()">Add Task</button>
-   <div id="tasks"></div>
-  </div>
- </div>
+<div class="hero">
+<h1>🛠 Creator Tools</h1>
+<p>Calculator and Task Tracker are back!</p>
+</div>
+<div class="grid">
+<div class="card">
+<h2>🧮 Calculator</h2>
+<input id="n1" type="number" placeholder="First number">
+<select id="op">
+<option>+</option><option>-</option><option>*</option><option>/</option>
+</select>
+<input id="n2" type="number" placeholder="Second number">
+<button onclick="calc()">Calculate</button>
+<h3 id="result">Result: --</h3>
+</div>
+<div class="card">
+<h2>✅ Task Tracker</h2>
+<input id="taskInput" placeholder="Enter a task">
+<button onclick="addTask()">Add Task</button>
+<div id="tasks"></div>
+</div>
+</div>
 </section>
 </main>
 <footer>AAHIL AI STUDIO 2.0 · Anime Creator Community</footer>
 
 <script>
-const avatarColors=[
- ["#ff8cba","#6035a4"],["#62dcff","#174b99"],
- ["#ffc56c","#a43e54"],["#b7a0ff","#3b397d"],
- ["#7ce7c2","#176b70"],["#ff9d78","#8c315a"],
- ["#a5d7ff","#34518b"],["#e9a8ff","#713a91"],
- ["#ffe18b","#97612b"],["#9ff0ee","#286c8d"]
+const names=[
+"Itachi Uchiha","Eren Yeager","Levi Ackerman","Erwin Smith",
+"Mikasa Ackerman","Reiner Braun","Annie Leonhart","Hange Zoe",
+"Madara Uchiha","Minato Namikaze","Hinata Hyuga","Sakura Haruno",
+"Giyu Tomioka","Shinobu Kocho","Inosuke Hashibira","Kyojuro Rengoku",
+"Satoru Gojo","Megumi Fushiguro","Sukuna","Toji Fushiguro",
+"Yuta Okkotsu","Monkey D. Luffy","Sanji","Nico Robin",
+"Portgas D. Ace","Roronoa Zoro","Shanks","Trafalgar Law",
+"Goku","Vegeta","L Lawliet","Light Yagami",
+"Izuku Midoriya","Shoto Todoroki","Shota Aizawa","Denji",
+"Loid Forger","Sung Jinwoo","Ichigo Kurosaki","Saitama",
+"Killua Zoldyck","Rimuru Tempest","Yor Forger","Megumin",
+"Gohan","Piccolo","Armin Arlert","Nobara Kugisaki",
+"Nami","Kisuke Urahara"
 ];
 
-function avatarSVG(i){
- const c=avatarColors[i%avatarColors.length];
- const svg=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
- <defs><linearGradient id="g" x2="1" y2="1"><stop stop-color="${c[0]}"/><stop offset="1" stop-color="${c[1]}"/></linearGradient></defs>
- <rect width="120" height="120" rx="60" fill="url(#g)"/>
- <path d="M20 120 Q22 80 60 80 Q98 80 100 120" fill="#18223e"/>
- <ellipse cx="60" cy="57" rx="29" ry="35" fill="#ffd6bd"/>
- <path d="M30 55 Q18 12 55 18 Q88 3 91 48 L81 39 72 25 62 40 48 29 37 53Z" fill="#202039"/>
- <path d="M43 57 Q51 49 57 57 M65 57 Q73 49 79 57" fill="none" stroke="#25244b" stroke-width="4" stroke-linecap="round"/>
- <circle cx="51" cy="60" r="3" fill="#42cfff"/><circle cx="72" cy="60" r="3" fill="#42cfff"/>
- <path d="M54 73 Q60 78 67 73" fill="none" stroke="#a54c62" stroke-width="2" stroke-linecap="round"/>
- <path d="M32 45 Q24 22 49 16 Q78 3 91 35 L77 28 65 34 54 24 41 38Z" fill="#202039"/>
- </svg>`;
- return "data:image/svg+xml;charset=utf-8,"+encodeURIComponent(svg);
-}
-
-const sampleCreators=[
- {id:"ANIME204",name:"Shadow Senpai",xp:850,avatar:1,bio:"Anime editor and digital creator.",posts:["My anime edit collection","Cyber city artwork"]},
- {id:"CREATOR777",name:"Mika Star",xp:620,avatar:2,bio:"Art, animation and creativity.",posts:["My first character design"]},
- {id:"NOVA009",name:"NovaX",xp:1200,avatar:3,bio:"Gaming and AI video creator.",posts:["New AI video project"]},
- {id:"KIRA555",name:"Kira Studio",xp:430,avatar:4,bio:"Learning animation every day.",posts:["My creator journey"]}
+const creators=[
+{id:"ANIME204",name:"Shadow Senpai",xp:850,avatar:2,bio:"Anime editor and digital creator.",posts:["My anime edit collection","New project is live!"]},
+{id:"CREATOR777",name:"Mika Star",xp:620,avatar:12,bio:"Art and animation creator.",posts:["My character design"]},
+{id:"NOVA009",name:"NovaX",xp:1200,avatar:37,bio:"AI video and gaming creator.",posts:["My latest video project"]},
+{id:"KIRA555",name:"Kira Studio",xp:430,avatar:16,bio:"Learning animation every day.",posts:["Creator journey begins"]}
 ];
 
-const load=(k,d)=>{try{return JSON.parse(localStorage.getItem(k))??d}catch{return d}};
-const save=(k,v)=>localStorage.setItem(k,JSON.stringify(v));
-let user=load("aas_user",null);
+const read=(k,d)=>{
+try{return JSON.parse(localStorage.getItem(k))??d}
+catch{return d}
+};
+const write=(k,v)=>localStorage.setItem(k,JSON.stringify(v));
+
+const freeAvatarIds=[14,16,33,36];
+const galleryOrder=[
+...freeAvatarIds,
+...names.map((_,i)=>i).filter(i=>!freeAvatarIds.includes(i))
+];
+
+let user=read("aas_user_v3",null);
+
 if(!user){
- user={id:"AA-"+Math.random().toString(36).slice(2,8).toUpperCase(),name:"Aahil Creator",xp:0,avatar:0};
- save("aas_user",user);
+user={
+id:"AA-"+Math.random().toString(36).slice(2,8).toUpperCase(),
+name:"Aahil Creator",
+xp:0,
+avatar:14,
+unlocked:[...freeAvatarIds]
+};
+write("aas_user_v3",user);
+}else{
+user.unlocked=[
+...new Set([
+...freeAvatarIds,
+...(user.unlocked||[]).filter(i=>i>=4)
+])
+];
+if(!user.unlocked.includes(user.avatar))user.avatar=14;
+write("aas_user_v3",user);
 }
-let posts=load("aas_posts",[]);
-let tasks=load("aas_tasks",[]);
-let gifts=load("aas_gifts",[]);
 
-function rank(x){return x>=2000?"Legend":x>=1000?"Master":x>=500?"Pro":x>=100?"Creator":"Beginner"}
+function avatarPrice(position){
+return 300+(position-5)*25;
+}
+
+let posts=read("aas_posts_v3",[]);
+let tasks=read("aas_tasks_v3",[]);
+let giftLog=read("aas_gifts_v3",[]);
+
+function rank(x){
+return x>=2000?"Legend":
+x>=1000?"Master":
+x>=500?"Pro":
+x>=100?"Creator":"Beginner";
+}
+
+function pos(i){
+let c=i%10,r=Math.floor(i/10);
+return `${c/9*100}% ${r/4*100}%`;
+}
+
+function avatar(i,cls="avatar"){
+let d=document.createElement("div");
+d.className=cls;
+d.style.backgroundPosition=pos(i);
+d.title=names[i];
+return d;
+}
+
 function update(){
- document.getElementById("homeId").textContent=user.id;
- document.getElementById("homeXP").textContent=user.xp+" XP";
- document.getElementById("homeRank").textContent=rank(user.xp);
- document.getElementById("myName").textContent=user.name;
- document.getElementById("myId").textContent="ID: "+user.id;
- document.getElementById("myXP").textContent=user.xp+" XP";
- document.getElementById("myRank").textContent="Rank: "+rank(user.xp);
- document.getElementById("myAvatar").src=avatarSVG(user.avatar);
- document.getElementById("nameInput").value=user.name;
- document.getElementById("dailyBtn").disabled=user.lastClaim===new Date().toDateString();
- document.getElementById("dailyBtn").textContent=document.getElementById("dailyBtn").disabled?"Today's XP claimed":"Claim +30 XP";
+document.getElementById("homeId").textContent=user.id;
+document.getElementById("homeXP").textContent=user.xp+" XP";
+document.getElementById("homeRank").textContent=rank(user.xp);
+document.getElementById("myName").textContent=user.name;
+document.getElementById("myId").textContent="ID: "+user.id;
+document.getElementById("myXP").textContent=user.xp+" XP";
+document.getElementById("myRank").textContent="Rank: "+rank(user.xp);
+document.getElementById("myAvatar").style.backgroundPosition=pos(user.avatar);
+document.getElementById("nameInput").value=user.name;
+
+let claimed=user.lastClaim===new Date().toDateString();
+document.getElementById("dailyBtn").disabled=claimed;
+document.getElementById("dailyBtn").textContent=
+claimed?"Today's reward claimed":"Claim +30 XP";
 }
-function showPage(id){
- document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
- document.getElementById(id).classList.add("active");
- if(id==="profile")renderProfile();
- if(id==="explore")renderExplore();
- if(id==="create")renderFeed();
- if(id==="tools")renderTasks();
- update();
+
+function page(id){
+document.querySelectorAll(".page").forEach(x=>x.classList.remove("active"));
+document.getElementById(id).classList.add("active");
+if(id==="profile")renderProfile();
+if(id==="explore")renderExplore();
+if(id==="create")renderFeed();
+if(id==="tools")renderTasks();
+update();
 }
-function claimDaily(){
- if(user.lastClaim===new Date().toDateString())return alert("You already claimed today's XP!");
- user.xp+=30;user.lastClaim=new Date().toDateString();save("aas_user",user);update();
+
+function daily(){
+if(user.lastClaim===new Date().toDateString())return alert("Already claimed today.");
+user.xp+=30;
+user.lastClaim=new Date().toDateString();
+write("aas_user_v3",user);
+update();
 }
+
 function saveProfile(){
- user.name=document.getElementById("nameInput").value.trim()||"Creator";
- save("aas_user",user);update();alert("Profile saved!");
+user.name=document.getElementById("nameInput").value.trim()||"Creator";
+write("aas_user_v3",user);
+update();
+alert("Profile saved!");
 }
-function renderAvatars(){
- const box=document.getElementById("avatarChoices");box.innerHTML="";
- avatarColors.forEach((c,i)=>{
- const div=document.createElement("div");div.className="card avatar-choice";
- const img=document.createElement("img");img.src=avatarSVG(i);img.className="avatar small";
- const btn=document.createElement("button");btn.textContent=user.avatar===i?"Selected":"Choose";
- btn.onclick=()=>{user.avatar=i;save("aas_user",user);renderAvatars();update()};
- div.append(img,btn);box.append(div);
- });
-}
+
 function renderProfile(){
- renderAvatars();
- const box=document.getElementById("myPosts");box.innerHTML="";
- const mine=posts.filter(p=>p.owner===user.id);
- if(!mine.length)box.textContent="You haven't posted anything yet.";
- mine.forEach(p=>box.append(makePost(p)));
+let box=document.getElementById("avatarChoices");
+box.innerHTML="";
+
+galleryOrder.forEach((i,positionIndex)=>{
+let displayPosition=positionIndex+1;
+let n=names[i];
+let free=freeAvatarIds.includes(i);
+let price=free?0:avatarPrice(displayPosition);
+
+let card=document.createElement("div");
+card.className="card avatar-option";
+card.append(avatar(i));
+
+let info=document.createElement("div");
+let title=document.createElement("b");
+let sub=document.createElement("div");
+
+title.textContent=displayPosition+". "+n;
+sub.className="muted";
+
+sub.textContent=free?"FREE · Starter avatar":
+user.unlocked.includes(i)?"Unlocked":
+"🔒 "+price+" XP to unlock";
+
+info.append(title,sub);
+
+let btn=document.createElement("button");
+btn.className="smallbtn";
+
+if(user.unlocked.includes(i)){
+btn.textContent=user.avatar===i?"Selected":"Select";
+btn.onclick=()=>{
+user.avatar=i;
+write("aas_user_v3",user);
+renderProfile();
+update();
+};
+}else{
+btn.textContent="Unlock · "+price+" XP";
+btn.onclick=()=>{
+if(user.xp<price)return alert("You need "+price+" XP to unlock "+n+".");
+if(!confirm("Unlock "+n+" for "+price+" XP?"))return;
+user.xp-=price;
+user.unlocked.push(i);
+user.avatar=i;
+write("aas_user_v3",user);
+renderProfile();
+update();
+};
 }
+
+card.append(info,btn);
+box.append(card);
+});
+}
+
 function renderExplore(){
- const q=(document.getElementById("search").value||"").toLowerCase();
- const box=document.getElementById("creatorList");box.innerHTML="";
- sampleCreators.filter(c=>(c.name+c.id).toLowerCase().includes(q)).forEach(c=>{
- const card=document.createElement("div");card.className="card";
- const img=document.createElement("img");img.src=avatarSVG(c.avatar);img.className="avatar";
- const h=document.createElement("h3");h.textContent=c.name;
- const info=document.createElement("p");info.textContent=c.id+" · "+c.xp+" XP";
- const b=document.createElement("button");b.textContent="View Profile";b.onclick=()=>viewCreator(c.id);
- card.append(img,h,info,b);box.append(card);
- });
+let q=(document.getElementById("search").value||"").toLowerCase();
+let box=document.getElementById("creatorList");
+box.innerHTML="";
+
+creators.filter(c=>(c.name+c.id).toLowerCase().includes(q)).forEach(c=>{
+let card=document.createElement("div");
+card.className="card";
+card.append(avatar(c.avatar));
+
+let h=document.createElement("h3");
+h.textContent=c.name;
+
+let p=document.createElement("p");
+p.textContent=c.id+" · "+c.xp+" XP";
+
+let b=document.createElement("button");
+b.textContent="View Creator";
+b.onclick=()=>viewCreator(c.id);
+
+card.append(h,p,b);
+box.append(card);
+});
 }
+
 function viewCreator(id){
- const c=sampleCreators.find(x=>x.id===id);if(!c)return;
- const box=document.getElementById("creatorDetail");box.innerHTML="";
- const card=document.createElement("div");card.className="card";
- const img=document.createElement("img");img.src=avatarSVG(c.avatar);img.className="avatar";
- const h=document.createElement("h2");h.textContent=c.name;
- const bio=document.createElement("p");bio.textContent=c.bio;
- const xp=document.createElement("p");xp.textContent=c.xp+" XP · ID: "+c.id;
- const gift=document.createElement("input");gift.type="number";gift.min="1";gift.max="100";gift.placeholder="XP amount (max 100)";
- const btn=document.createElement("button");btn.textContent="🎁 Send Demo XP";
- btn.onclick=()=>giftXP(c.id,gift.value);
- card.append(img,h,bio,xp,gift,btn);
- const postsTitle=document.createElement("h3");postsTitle.textContent="Creator Posts";
- card.append(postsTitle);
- c.posts.forEach(t=>{const p=document.createElement("p");p.textContent="✦ "+t;card.append(p)});
- box.replaceChildren(card);
+let c=creators.find(x=>x.id===id);
+if(!c)return;
+
+let box=document.getElementById("creatorDetail");
+let card=document.createElement("div");
+card.className="card";
+card.append(avatar(c.avatar,"avatar large"));
+
+let h=document.createElement("h2");
+h.textContent=c.name;
+
+let bio=document.createElement("p");
+bio.textContent=c.bio;
+
+let xp=document.createElement("p");
+xp.textContent=c.xp+" XP · ID: "+c.id;
+
+let amount=document.createElement("input");
+amount.type="number";
+amount.min="1";
+amount.max="100";
+amount.placeholder="Gift 1–100 XP";
+
+let gift=document.createElement("button");
+gift.textContent="🎁 Send XP Gift";
+gift.onclick=()=>sendGift(c.id,amount.value);
+
+card.append(h,bio,xp,amount,gift);
+
+let title=document.createElement("h3");
+title.textContent="Creator Posts";
+card.append(title);
+
+c.posts.forEach(t=>{
+let p=document.createElement("p");
+p.textContent="✦ "+t;
+card.append(p);
+});
+
+box.replaceChildren(card);
 }
-function giftXP(id,amount){
- amount=Number(amount);
- if(!Number.isInteger(amount)||amount<1||amount>100)return alert("Enter 1 to 100 XP.");
- if(user.xp<amount)return alert("Not enough XP!");
- const creator=sampleCreators.find(c=>c.id===id);
- if(!creator)return;
- user.xp-=amount;creator.xp+=amount;
- gifts.push({to:id,amount,date:new Date().toLocaleString()});
- save("aas_user",user);save("aas_gifts",gifts);save("aas_demo_creators",sampleCreators);
- update();renderExplore();viewCreator(id);
- alert("Demo gift sent! This only changes this browser's demo data.");
+
+function sendGift(id,n){
+n=Number(n);
+if(!Number.isInteger(n)||n<1||n>100)return alert("Gift must be 1–100 XP.");
+if(user.xp<n)return alert("Not enough XP.");
+
+let c=creators.find(x=>x.id===id);
+if(!c)return;
+
+user.xp-=n;
+c.xp+=n;
+giftLog.push({to:id,xp:n,at:new Date().toLocaleString()});
+
+write("aas_user_v3",user);
+write("aas_gifts_v3",giftLog);
+write("aas_demo_creators_v3",creators);
+
+update();
+renderExplore();
+viewCreator(id);
+alert("Demo gift sent. This only updates this browser's demo data.");
 }
+
 function createPost(){
- const title=document.getElementById("postTitle").value.trim();
- const text=document.getElementById("postText").value.trim();
- const link=document.getElementById("postLink").value.trim();
- if(!title||!text)return alert("Please add a title and description.");
- if(link&&!/^https?:\/\//i.test(link))return alert("Use a valid link starting with https://");
- posts.unshift({id:Date.now(),owner:user.id,name:user.name,title,text,link,avatar:user.avatar});
- save("aas_posts",posts);
- document.getElementById("postTitle").value="";
- document.getElementById("postText").value="";
- document.getElementById("postLink").value="";
- renderFeed();alert("Post published in this browser!");
+let title=document.getElementById("postTitle").value.trim();
+let text=document.getElementById("postText").value.trim();
+let link=document.getElementById("postLink").value.trim();
+
+if(!title||!text)return alert("Add a title and description.");
+if(link&&!/^https?:\/\//i.test(link))return alert("Link must start with https://");
+
+posts.unshift({
+id:Date.now(),
+owner:user.id,
+name:user.name,
+title,
+text,
+link
+});
+
+write("aas_posts_v3",posts);
+
+document.getElementById("postTitle").value="";
+document.getElementById("postText").value="";
+document.getElementById("postLink").value="";
+
+renderFeed();
+alert("Post added to this browser's demo feed.");
 }
-function makePost(p){
- const card=document.createElement("div");card.className="card post";
- const h=document.createElement("h3");h.textContent=p.title;
- const who=document.createElement("div");who.className="muted";who.textContent=p.name+" · "+p.owner;
- const body=document.createElement("p");body.textContent=p.text;
- card.append(who,h,body);
- if(p.link){const a=document.createElement("a");a.href=p.link;a.target="_blank";a.rel="noopener noreferrer";a.textContent="Open project link";a.style.color="#78ddff";card.append(a)}
- if(p.owner===user.id){const del=document.createElement("button");del.textContent="Delete";del.onclick=()=>{posts=posts.filter(x=>x.id!==p.id);save("aas_posts",posts);renderFeed();renderProfile()};card.append(del)}
- return card;
+
+function postCard(p){
+let d=document.createElement("div");
+d.className="card post";
+
+let h=document.createElement("h3");
+h.textContent=p.title;
+
+let who=document.createElement("div");
+who.className="muted";
+who.textContent=p.name+" · "+p.owner;
+
+let t=document.createElement("p");
+t.textContent=p.text;
+
+d.append(who,h,t);
+
+if(p.link){
+let a=document.createElement("a");
+a.href=p.link;
+a.target="_blank";
+a.rel="noopener noreferrer";
+a.textContent="Open project";
+a.style.color="#80ddff";
+d.append(a);
 }
+
+if(p.owner===user.id){
+let b=document.createElement("button");
+b.textContent="Delete";
+b.onclick=()=>{
+posts=posts.filter(x=>x.id!==p.id);
+write("aas_posts_v3",posts);
+renderFeed();
+renderProfile();
+};
+d.append(b);
+}
+return d;
+}
+
 function renderFeed(){
- const box=document.getElementById("feed");box.innerHTML="";
- if(!posts.length){box.textContent="No posts yet. Be the first creator!";return}
- posts.forEach(p=>box.append(makePost(p)));
+let b=document.getElementById("feed");
+b.innerHTML="";
+if(!posts.length)b.textContent="No posts yet. Be the first creator!";
+posts.forEach(p=>b.append(postCard(p)));
 }
-function calculate(){
- const a=Number(document.getElementById("num1").value),b=Number(document.getElementById("num2").value);
- const op=document.getElementById("operator").value;
- if(document.getElementById("num1").value===""||document.getElementById("num2").value==="")return;
- if(op==="/"&&b===0)return document.getElementById("calcResult").textContent="Cannot divide by zero";
- const result=op==="+"?a+b:op==="-"?a-b:op==="*"?a*b:a/b;
- document.getElementById("calcResult").textContent="Result: "+result;
+
+function calc(){
+let a=document.getElementById("n1").value;
+let b=document.getElementById("n2").value;
+let op=document.getElementById("op").value;
+if(a===""||b==="")return;
+
+let x=Number(a),y=Number(b);
+if(op==="/"&&y===0){
+document.getElementById("result").textContent="Cannot divide by zero";
+return;
 }
+
+document.getElementById("result").textContent="Result: "+
+(op==="+"?x+y:op==="-"?x-y:op==="*"?x*y:x/y);
+}
+
 function addTask(){
- const input=document.getElementById("taskInput"),value=input.value.trim();if(!value)return;
- tasks.push({text:value,done:false});save("aas_tasks",tasks);input.value="";renderTasks();
+let x=document.getElementById("taskInput");
+let v=x.value.trim();
+if(!v)return;
+
+tasks.push({text:v,done:false});
+write("aas_tasks_v3",tasks);
+x.value="";
+renderTasks();
 }
+
 function renderTasks(){
- const box=document.getElementById("tasks");box.innerHTML="";
- tasks.forEach((t,i)=>{
- const row=document.createElement("div");row.className="card";
- const label=document.createElement("label");const check=document.createElement("input");
- check.type="checkbox";check.checked=t.done;check.style.width="auto";
- check.onchange=()=>{tasks[i].done=check.checked;save("aas_tasks",tasks);renderTasks()};
- label.append(check,document.createTextNode(" "+t.text));
- const del=document.createElement("button");del.textContent="Delete";
- del.onclick=()=>{tasks.splice(i,1);save("aas_tasks",tasks);renderTasks()};
- row.append(label,del);box.append(row);
- });
+let b=document.getElementById("tasks");
+b.innerHTML="";
+
+tasks.forEach((t,i)=>{
+let d=document.createElement("div");
+let l=document.createElement("label");
+let c=document.createElement("input");
+let del=document.createElement("button");
+
+d.className="card";
+c.type="checkbox";
+c.checked=t.done;
+c.style.width="auto";
+
+c.onchange=()=>{
+tasks[i].done=c.checked;
+write("aas_tasks_v3",tasks);
+renderTasks();
+};
+
+l.append(c,document.createTextNode(" "+t.text));
+del.textContent="Delete";
+
+del.onclick=()=>{
+tasks.splice(i,1);
+write("aas_tasks_v3",tasks);
+renderTasks();
+};
+
+d.append(l,del);
+b.append(d);
+});
 }
-function renderFeatured(){
- const box=document.getElementById("featured");box.innerHTML="";
- sampleCreators.slice(0,3).forEach(c=>{
- const d=document.createElement("div");d.className="card";
- const img=document.createElement("img");img.src=avatarSVG(c.avatar);img.className="avatar small";
- const h=document.createElement("h3");h.textContent=c.name;
- const b=document.createElement("button");b.textContent="Explore";b.onclick=()=>{showPage("explore");viewCreator(c.id)};
- d.append(img,h,b);box.append(d);
- });
+
+function featured(){
+let b=document.getElementById("featured");
+
+creators.slice(0,3).forEach(c=>{
+let d=document.createElement("div");
+d.className="card";
+d.append(avatar(c.avatar,"avatar small"));
+
+let h=document.createElement("h3");
+h.textContent=c.name;
+
+let x=document.createElement("button");
+x.textContent="Explore";
+x.onclick=()=>{
+page("explore");
+viewCreator(c.id);
+};
+
+d.append(h,x);
+b.append(d);
+});
 }
-const storedCreators=load("aas_demo_creators",null);
-if(storedCreators)sampleCreators.splice(0,sampleCreators.length,...storedCreators);
-update();renderFeatured();renderExplore();renderFeed();renderTasks();
+
+let savedCreators=read("aas_demo_creators_v3",null);
+if(savedCreators)creators.splice(0,creators.length,...savedCreators);
+
+update();
+featured();
+renderExplore();
+renderFeed();
+renderTasks();
 </script>
 </body>
 </html>
